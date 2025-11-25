@@ -157,6 +157,7 @@ int Mesh<Scalar>::LoadObjFile(const std::string &filename) {
   std::vector<Vector3<Scalar>> positions;
   std::vector<Vector3<Scalar>> normals;
   std::vector<Vector2<Scalar>> tex_coords;
+  std::vector<int> material_ids;  // Material ID for each triangle
 
   std::vector<uint32_t> indices;
 
@@ -215,14 +216,15 @@ int Mesh<Scalar>::LoadObjFile(const std::string &filename) {
           indices.push_back(global_index_offset);
           indices.push_back(global_index_offset + v - 1);
           indices.push_back(global_index_offset + v);
+          
+          // Store material ID for this triangle
+          int material_id = shapes[s].mesh.material_ids[f];
+          material_ids.push_back(material_id);
         }
       }
 
       index_offset += fv;
       global_index_offset += fv;
-
-      // per-face material
-      // shapes[s].mesh.material_ids[f];
     }
   }
 
@@ -238,6 +240,19 @@ int Mesh<Scalar>::LoadObjFile(const std::string &filename) {
   tangents_.clear();
   signals_.clear();
   indices_ = indices;
+  material_ids_ = material_ids;
+
+  // Store material data from tinyobjloader
+  material_data_.clear();
+  for (const auto& mat : materials) {
+    MaterialData mat_data;
+    mat_data.name = mat.name;
+    mat_data.diffuse = Vector3<Scalar>(mat.diffuse[0], mat.diffuse[1], mat.diffuse[2]);
+    mat_data.specular = Vector3<Scalar>(mat.specular[0], mat.specular[1], mat.specular[2]);
+    mat_data.shininess = mat.shininess;
+    mat_data.diffuse_texture = mat.diffuse_texname;
+    material_data_.push_back(mat_data);
+  }
 
   num_vertices_ = positions_.size();
   num_indices_ = indices.size();

@@ -59,6 +59,12 @@ class Mesh {
     return indices_.data();
   }
 
+  int *MaterialIds() {
+    if (material_ids_.empty())
+      return nullptr;
+    return material_ids_.data();
+  }
+
   const Vector3<Scalar> *Positions() const {
     return positions_.data();
   }
@@ -91,6 +97,12 @@ class Mesh {
     return indices_.data();
   }
 
+  const int *MaterialIds() const {
+    if (material_ids_.empty())
+      return nullptr;
+    return material_ids_.data();
+  }
+
   int LoadObjFile(const std::string &filename);
 
   int SaveObjFile(const std::string &filename) const;
@@ -112,6 +124,20 @@ class Mesh {
 
   Mesh<Scalar> Transformed(const Matrix<Scalar, 3, 4> &transform) const;
 
+  // Material data structure from OBJ/MTL
+  struct MaterialData {
+    std::string name;
+    Vector3<Scalar> diffuse{0.8f, 0.8f, 0.8f};    // Kd
+    Vector3<Scalar> specular{0.5f, 0.5f, 0.5f};   // Ks
+    Scalar shininess{32.0f};                       // Ns
+    std::string diffuse_texture;                   // map_Kd
+  };
+
+  // Get material data loaded from MTL file
+  const std::vector<MaterialData>& GetMaterialData() const {
+    return material_data_;
+  }
+
  private:
   std::vector<Vector3<Scalar>> positions_;
   std::vector<Vector3<Scalar>> normals_;
@@ -119,6 +145,8 @@ class Mesh {
   std::vector<Vector2<Scalar>> tex_coords_;
   std::vector<float> signals_;
   std::vector<uint32_t> indices_;
+  std::vector<int> material_ids_;  // Material ID for each triangle
+  std::vector<MaterialData> material_data_;  // Material data from MTL file
   size_t num_vertices_{0};
   size_t num_indices_{0};
 };
