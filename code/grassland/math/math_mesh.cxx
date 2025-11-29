@@ -249,6 +249,7 @@ int Mesh<Scalar>::LoadObjFile(const std::string &filename) {
     mat_data.name = mat.name;
     mat_data.diffuse = Vector3<Scalar>(mat.diffuse[0], mat.diffuse[1], mat.diffuse[2]);
     mat_data.specular = Vector3<Scalar>(mat.specular[0], mat.specular[1], mat.specular[2]);
+    mat_data.emission = Vector3<Scalar>(mat.emission[0], mat.emission[1], mat.emission[2]);
     mat_data.shininess = mat.shininess;
     mat_data.diffuse_texture = mat.diffuse_texname;
     material_data_.push_back(mat_data);

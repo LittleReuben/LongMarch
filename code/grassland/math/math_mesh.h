@@ -129,6 +129,7 @@ class Mesh {
     std::string name;
     Vector3<Scalar> diffuse{0.8f, 0.8f, 0.8f};    // Kd
     Vector3<Scalar> specular{0.5f, 0.5f, 0.5f};   // Ks
+      Vector3<Scalar> emission{0.0f, 0.0f, 0.0f};   // Ke (emissive color)
     Scalar shininess{32.0f};                       // Ns
     std::string diffuse_texture;                   // map_Kd
   };
