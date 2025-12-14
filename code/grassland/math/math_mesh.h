@@ -132,6 +132,7 @@ class Mesh {
       Vector3<Scalar> emission{0.0f, 0.0f, 0.0f};   // Ke (emissive color)
     Scalar shininess{32.0f};                       // Ns
     std::string diffuse_texture;                   // map_Kd
+    std::string normal_texture;
   };
 
   // Get material data loaded from MTL file
