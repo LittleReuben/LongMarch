@@ -131,6 +131,7 @@ class Mesh {
     Vector3<Scalar> specular{0.5f, 0.5f, 0.5f};   // Ks
       Vector3<Scalar> emission{0.0f, 0.0f, 0.0f};   // Ke (emissive color)
     Scalar shininess{32.0f};                       // Ns
+    Vector3<Scalar> transparency{0.0f, 0.0f, 0.0f};  // Tf (transparency per channel RGB, 1.0 = opaque)
     std::string diffuse_texture;                   // map_Kd
     std::string normal_texture;
   };

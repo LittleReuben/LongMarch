@@ -251,6 +251,7 @@ int Mesh<Scalar>::LoadObjFile(const std::string &filename) {
     mat_data.specular = Vector3<Scalar>(mat.specular[0], mat.specular[1], mat.specular[2]);
     mat_data.emission = Vector3<Scalar>(mat.emission[0], mat.emission[1], mat.emission[2]);
     mat_data.shininess = mat.shininess;
+    mat_data.transparency = Vector3<Scalar>(mat.transmittance[0], mat.transmittance[1], mat.transmittance[2]);  // Tf: RGB transparency channels
     mat_data.diffuse_texture = mat.diffuse_texname;
     mat_data.normal_texture = !mat.normal_texname.empty() ? mat.normal_texname : mat.bump_texname;
     material_data_.push_back(mat_data);
