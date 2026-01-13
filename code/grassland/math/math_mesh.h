@@ -133,6 +133,7 @@ class Mesh {
     Scalar shininess{32.0f};                         // Ns
     Vector3<Scalar> transmission{0.0f, 0.0f, 0.0f};  // Tf (transmission per channel RGB, 1.0 = opaque)
     Scalar transparency{1.0f};                       // d (alpha)
+    Scalar IoR{1.0f};                                // Ni
     std::string diffuse_texture;                     // map_Kd
     std::string normal_texture;
   };
